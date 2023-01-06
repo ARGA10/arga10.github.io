@@ -93,12 +93,87 @@
             </div>
         </div>
     </nav>
-    <!-- <canvas id="d"></canvas>
-    <canvas id="c"></canvas> -->
+    <div class="container">
+        <h2 class="text-center">Los más destacados</h2>
+        <div class="lightbox-gallery">
+            <div>
+                <canvas id="c" style="width: 200px; height: 200px;"></canvas>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button id="c-ampliar" class="btn btn-warning btn-sm" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"
+                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Ampliar</button>
+                </div>
+            </div>
+            <div>
+                <canvas id="d" style="width: 200px; height: 200px;"></canvas>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button id="d-ampliar" class="btn btn-warning btn-sm" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"
+                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Ampliar</button>
+                </div>
+            </div>
 
-    <!-- <canvas id="c"></canvas>
-    <canvas id="f"></canvas>
-    <canvas id="j"></canvas> -->
+            <div>
+                <canvas id="e" style="width: 200px; height: 200px;"></canvas>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button id="e-ampliar" class="btn btn-warning btn-sm" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"
+                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Ampliar</button>
+                </div>
+            </div>
+            <div>
+                <canvas id="f" style="width: 200px; height: 200px;"></canvas>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button id="f-ampliar" class="btn btn-warning btn-sm" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"
+                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Ampliar</button>
+                </div>
+            </div>
+            <div>
+                <canvas id="g" style="width: 200px; height: 200px;"></canvas>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button id="g-ampliar" class="btn btn-warning btn-sm" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"
+                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Ampliar</button>
+                </div>
+            </div>
+            <div>
+                <canvas id="h" style="width: 200px; height: 200px;"></canvas>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button id="h-ampliar" class="btn btn-warning btn-sm" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"
+                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Ampliar</button>
+                </div>
+            </div>
+            <div><img src="https://picsum.photos/id/155/300/300"
+                    data-image-hd="https://picsum.photos/id/155/600/600"
+                    alt="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates veritatis similique, amet, maiores soluta recusandae cupiditate, sed perspiciatis fugit minima, sunt dolores cum earum deserunt illo ipsum!">
+            </div>
+            <div><img src="https://picsum.photos/id/11/300/300" data-image-hd="https://picsum.photos/id/11/600/600"
+                    alt="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque laudantium dignissimos tenetur eos unde quidem repellat officiis nemo laboriosam necessitatibus deleniti commodi quis aliquid est atque tempora aut, nihil!">
+            </div>
+            <div><img src="https://picsum.photos/id/434/300/300"
+                    data-image-hd="https://picsum.photos/id/434/600/600"
+                    alt="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto minus consequatur soluta quaerat itaque, laboriosam quis a facilis, cumque, deleniti quas aperiam voluptate dolore. Enim nostrum sit eaque, porro eligendi illo placeat?">
+            </div>
+            <div><img src="https://picsum.photos/id/101/300/300"
+                    data-image-hd="https://picsum.photos/id/101/600/600"
+                    alt="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi suscipit quam, id aliquam totam aperiam quas rem debitis voluptatem pariatur, illo accusamus facilis eius ipsa! Reprehenderit libero, quas iste repudiandae distinctio, quos dignissimos.">
+            </div>
+        </div>
+    </div>
+
+
+    <div class="offcanvas offcanvas-bottom" tabindex="-1" id="offcanvasBottom" style="height: 90%;"
+        aria-labelledby="offcanvasBottomLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasBottomLabel">:)</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body small">
+            <div id="addCanvas"></div>
+        </div>
+    </div>
 </body>
 <!-- Import maps polyfill -->
 <!-- Remove this when import maps will be widely supported -->
