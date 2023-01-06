@@ -5,7 +5,7 @@
     <!-- <script type="module" src="./src/index.js"></script> -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Three.js - Load .OBJ - Auto Framing Camera XZ Plane</title>
+    <title>Catalogo SKIPEA</title>
     <!-- botstrap5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 
@@ -67,13 +67,19 @@
                             <a class="nav-link" aria-current="page" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/pagina1">Pagina1</a>
+                            <a class="nav-link" href="/pagina1">Anillos</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/pagina2">Pagina2</a>
+                            <a class="nav-link" href="/pagina2">Aretes</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/paginan">Paginan</a>
+                            <a class="nav-link" href="/paginan">Collares</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/paginan">Pulseras</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/paginan">Tobilleras</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Link</a>
@@ -154,7 +160,15 @@
                         style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Ampliar</button>
                 </div>
             </div>
-            <div><img src="https://picsum.photos/id/155/300/300" data-image-hd="https://picsum.photos/id/155/600/600"
+            <div>
+                <div id="canvanColor" style="width: 200px; height: 200px;"></div>
+                <div class="d-grid gap-2 col-6 mx-auto">
+                    <button id="h-ampliar" class="btn btn-warning btn-sm" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasBottom" aria-controls="offcanvasBottom"
+                        style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Ampliar</button>
+                </div>
+            </div>
+            <!-- <div><img src="https://picsum.photos/id/155/300/300" data-image-hd="https://picsum.photos/id/155/600/600"
                     alt="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates veritatis similique, amet, maiores soluta recusandae cupiditate, sed perspiciatis fugit minima, sunt dolores cum earum deserunt illo ipsum!">
             </div>
             <div><img src="https://picsum.photos/id/11/300/300" data-image-hd="https://picsum.photos/id/11/600/600"
@@ -165,7 +179,7 @@
             </div>
             <div><img src="https://picsum.photos/id/101/300/300" data-image-hd="https://picsum.photos/id/101/600/600"
                     alt="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi suscipit quam, id aliquam totam aperiam quas rem debitis voluptatem pariatur, illo accusamus facilis eius ipsa! Reprehenderit libero, quas iste repudiandae distinctio, quos dignissimos.">
-            </div>
+            </div> -->
         </div>
     </div>
 
@@ -186,6 +200,7 @@
         import * as THREE from 'three';
         import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
         import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+        import { MTLLoader } from 'three/addons/loaders/MTLLoader.js';
 
         function main(objmodel, canvasModel) {
 
@@ -205,9 +220,9 @@
             const controls = new OrbitControls(camera, canvas);
             controls.target.set(0, 0, 0);
             controls.update();
-            // camera.position.x = 800;
-            //       camera.position.y = 100;
-            //       camera.position.z = 1000;
+            camera.position.x = 0;
+            camera.position.y = 0;
+            camera.position.z = 1000;
             const scene = new THREE.Scene();
             scene.background = new THREE.Color('white');
 
@@ -236,7 +251,7 @@
             {
                 const skyColor = 0xB1E1FF;  // light blue
                 const groundColor = 0xB97A20;  // brownish orange
-                const intensity = 0.6;
+                const intensity = 0.5;
                 const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
                 scene.add(light);
             }
@@ -245,7 +260,7 @@
                 const color = 0xFFFFFF;
                 const intensity = 0.8;
                 const light = new THREE.DirectionalLight(color, intensity);
-                light.position.set(10, 0, 0);
+                light.position.set(0, 0, 0);
                 scene.add(light);
                 scene.add(light.target);
             }
@@ -331,6 +346,9 @@
         let objmodel2 = "./obj/ninja/ninjaHead_Low.obj"
         let objmodel3 = "./obj/emerald.obj"
         let objmodel4 = "./obj/tree.obj"
+        // let objmodel5 = "https://drive.google.com/file/d/1cwl9EOSAja-mHx4H1LZgUGF1CpRcec6z/view?usp=share_link"
+
+
         // let objmodel2 ="models/obj/male02/male02.obj"
         main(objmodel1, "#c");
         main(objmodel2, "#d");
@@ -340,30 +358,159 @@
         main(objmodel1, "#h");
 
         document.getElementById("d-ampliar").addEventListener("click", () => {
-                // console.log("aaaaaaaaaaa", document.getElementById("d"))
-                var x = document.createElement("canvas");
-                x.id = "x";
-                x.width = 500
-                x.height = 300;
-                var div = document.getElementById("addCanvas")
-                div.appendChild(x)
-                main(objmodel4, "#x");
-            })
-    // function createCanvas(canvasId) {
-    //     var x = document.createElement("canvas");
-    //     x.id = canvasId;
-    //     x.width = 300
-    //     x.height = 300;
-    //     document.body.appendChild(x);
-    // }
-    // createCanvas("c")
+            // console.log("aaaaaaaaaaa", document.getElementById("d"))
+            var x = document.createElement("canvas");
+            x.id = "x";
+            x.width = 600
+            x.height = 400;
+            var div = document.getElementById("addCanvas")
+            // div.appendChild(x)
+            // main(objmodel4, "#x");
+            initColor("addCanvas");
+        })
+        // function createCanvas(canvasId) {
+        //     var x = document.createElement("canvas");
+        //     x.id = canvasId;
+        //     x.width = 300
+        //     x.height = 300;
+        //     document.body.appendChild(x);
+        // }
+        // createCanvas("c")
 
 
 
-    // main(objmodel1, "#c");
-// main(objmodel2,"d");
-// main(objmodel3,"f");
-// main(objmodel4,"j");
+        // main(objmodel1, "#c");
+        // main(objmodel2,"d");
+        // main(objmodel3,"f");
+        // main(objmodel4,"j");
+
+
+        //  OBJ A COLOR
+        let camera, scene, renderer;
+
+        let mouseX = 0, mouseY = 0;
+
+        let windowHalfX = window.innerWidth / 2;
+        let windowHalfY = window.innerHeight / 2;
+
+        function initColor(canvanColor) {
+            let container = document.getElementById(canvanColor);
+            // document.body.appendChild(container);
+
+            camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+            camera.position.z = 250;
+
+            // scene
+
+            scene = new THREE.Scene();
+
+            const ambientLight = new THREE.AmbientLight(0xcccccc, 0.4);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0xffffff, 0.8);
+            camera.add(pointLight);
+            scene.add(camera);
+
+            const controls = new OrbitControls(camera, container);
+            controls.target.set(0, 0, 0);
+            controls.update();
+            camera.position.x = 0;
+            camera.position.y = 0;
+            camera.position.z = 300;
+            // const scene = new THREE.Scene();
+            scene.background = new THREE.Color('white');
+
+
+            // model
+
+            const onProgress = function (xhr) {
+
+                if (xhr.lengthComputable) {
+
+                    const percentComplete = xhr.loaded / xhr.total * 100;
+                    console.log(Math.round(percentComplete, 2) + '% downloaded');
+
+                }
+
+            };
+
+            new MTLLoader()
+                .setPath('obj/male02/')
+                .load('male02.mtl', function (materials) {
+
+                    materials.preload();
+
+                    new OBJLoader()
+                        .setMaterials(materials)
+                        .setPath('obj/male02/')
+                        .load('male02.obj', function (object) {
+
+                            object.position.y = -90;
+                            scene.add(object);
+
+                        }, onProgress);
+
+                });
+
+            //
+
+            renderer = new THREE.WebGLRenderer();
+            renderer.outputEncoding = THREE.sRGBEncoding;
+            renderer.setPixelRatio(window.devicePixelRatio);
+            if (canvanColor == "addCanvas") {
+                renderer.setSize(window.innerWidth, window.innerHeight);
+
+            } else {
+                renderer.setSize(200, 200);
+
+            }
+            console.log("aaaaaaaaaaaaaaaaaa---->", window.innerWidth, window.innerHeight)
+            container.appendChild(renderer.domElement);
+
+            // document.addEventListener('mousemove', onDocumentMouseMove);
+
+            //
+
+            // window.addEventListener('resize', onWindowResize);
+
+        }
+        function animate() {
+
+            requestAnimationFrame(animate);
+            render();
+
+        }
+
+        function render() {
+
+            // camera.position.x += (mouseX - camera.position.x) * .05;
+            // camera.position.y += (- mouseY - camera.position.y) * .05;
+
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+
+        }
+        function onDocumentMouseMove(event) {
+
+            mouseX = (event.clientX - windowHalfX) / 2;
+            mouseY = (event.clientY - windowHalfY) / 2;
+
+        }
+
+        function onWindowResize() {
+
+            windowHalfX = window.innerWidth / 2;
+            windowHalfY = window.innerHeight / 2;
+
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+
+            renderer.setSize(window.innerWidth, window.innerHeight);
+
+        }
+        initColor("canvanColor")
+        animate();
 
     </script>
 </body>
