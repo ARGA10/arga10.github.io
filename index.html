@@ -3,15 +3,288 @@
 <html>
 
 <head>
-    <script type="module" src="src/index.js"></script>
+    <!-- <script type="module" src="./src/index.js"></script> -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
     <title>Three.js - Load .OBJ - Auto Framing Camera XZ Plane</title>
+    <!-- botstrap5 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="css/main.css">
+    <!-- lib by galery -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
+    <!-- <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+        }
+
+        /* #c {
+        width: 25%;
+        height: 25%;
+        display: block;
+    } */
+        canvas {
+            width: 25%;
+            height: 25%;
+            display: block;
+        }
+    </style> -->
 </head>
 
 <body>
-Loading?
+    <nav class="navbar bg-body-tertiary" style="background-color: #253358 !important;">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar" style="background-color: #ffe36a;">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a class="navbar-brand" href="/" style="color:#ffe36a;">Los mejores diseños</a>
+            <img src="../img/logoSkipea.jpg" class="w-2 h-25" style="width: 50px;">
+
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar"
+                aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pagina1">Pagina1</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pagina2">Pagina2</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/paginan">Paginan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                        <!-- dropdown list -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex mt-3" role="search">
+                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- <canvas id="d"></canvas>
+    <canvas id="c"></canvas> -->
+
+    <!-- <canvas id="c"></canvas>
+    <canvas id="f"></canvas>
+    <canvas id="j"></canvas> -->
 </body>
+<!-- Import maps polyfill -->
+<!-- Remove this when import maps will be widely supported -->
+<script async src="https://unpkg.com/es-module-shims@1.3.6/dist/es-module-shims.js"></script>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "/build/three.module.js",
+    "three/addons/": "/lib/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+
+    function main(objmodel, canvasModel) {
+
+        const canvas = document.querySelector(canvasModel);
+        // const canvas = document.querySelector(canvasModel);
+        const renderer = new THREE.WebGLRenderer({ canvas });
+        renderer.outputEncoding = THREE.sRGBEncoding;
+
+        const fov = 45;
+        const aspect = 2;  // the canvas default
+        const near = 0.1;
+        const far = 100;
+        const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+        camera.position.set(0, 0, 0);
+        // camera.rotation.y = 45/180*Math.PI;
+
+        const controls = new OrbitControls(camera, canvas);
+        controls.target.set(0, 0, 0);
+        controls.update();
+        // camera.position.x = 800;
+        //       camera.position.y = 100;
+        //       camera.position.z = 1000;
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color('white');
+
+        {
+            const planeSize = 4;
+
+            const loader = new THREE.TextureLoader();
+            const texture = loader.load('resources/images/checker.png');
+            texture.encoding = THREE.sRGBEncoding;
+            texture.wrapS = THREE.RepeatWrapping;
+            texture.wrapT = THREE.RepeatWrapping;
+            texture.magFilter = THREE.NearestFilter;
+            const repeats = planeSize / 2;
+            texture.repeat.set(repeats, repeats);
+
+            const planeGeo = new THREE.PlaneGeometry(planeSize, planeSize);
+            const planeMat = new THREE.MeshPhongMaterial({
+                map: texture,
+                side: THREE.DoubleSide,
+            });
+            const mesh = new THREE.Mesh(planeGeo, planeMat);
+            mesh.rotation.x = Math.PI * 10;
+            scene.add(mesh);
+        }
+
+        {
+            const skyColor = 0xB1E1FF;  // light blue
+            const groundColor = 0xB97A20;  // brownish orange
+            const intensity = 0.6;
+            const light = new THREE.HemisphereLight(skyColor, groundColor, intensity);
+            scene.add(light);
+        }
+
+        {
+            const color = 0xFFFFFF;
+            const intensity = 0.8;
+            const light = new THREE.DirectionalLight(color, intensity);
+            light.position.set(10, 0, 0);
+            scene.add(light);
+            scene.add(light.target);
+        }
+
+        function frameArea(sizeToFitOnScreen, boxSize, boxCenter, camera) {
+            const halfSizeToFitOnScreen = sizeToFitOnScreen * 0.5;
+            const halfFovY = THREE.MathUtils.degToRad(camera.fov * .5);
+            const distance = halfSizeToFitOnScreen / Math.tan(halfFovY);
+            // compute a unit vector that points in the direction the camera is now
+            // in the xz plane from the center of the box
+            const direction = (new THREE.Vector3())
+                .subVectors(camera.position, boxCenter)
+                .multiply(new THREE.Vector3(1, 0, 1))
+                .normalize();
+
+            // move the camera to a position distance units way from the center
+            // in whatever direction the camera was from the center already
+            camera.position.copy(direction.multiplyScalar(distance).add(boxCenter));
+
+            // pick some near and far values for the frustum that
+            // will contain the box.
+            camera.near = boxSize / 100;
+            camera.far = boxSize * 100;
+
+            camera.updateProjectionMatrix();
+
+            // point the camera to look at the center of the box
+            camera.lookAt(boxCenter.x, boxCenter.y, boxCenter.z);
+        }
+
+        {
+            const objLoader = new OBJLoader();
+            objLoader.load(objmodel, (root) => {
+                // objLoader.load('resources/models/windmill_2/windmill.obj', (root) => {
+                root.updateMatrixWorld();
+
+                scene.add(root);
+                // compute the box that contains all the stuff
+                // from root and below
+                const box = new THREE.Box3().setFromObject(root);
+
+                const boxSize = box.getSize(new THREE.Vector3()).length();
+                const boxCenter = box.getCenter(new THREE.Vector3());
+
+                // set the camera to frame the box
+                frameArea(boxSize * 1.2, boxSize, boxCenter, camera);
+
+                // update the Trackball controls to handle the new size
+                controls.maxDistance = boxSize * 10;
+                controls.target.copy(boxCenter);
+                controls.update();
+            });
+        }
+
+        function resizeRendererToDisplaySize(renderer) {
+            const canvas = renderer.domElement;
+            const width = canvas.clientWidth;
+            const height = canvas.clientHeight;
+            const needResize = canvas.width !== width || canvas.height !== height;
+            if (needResize) {
+                renderer.setSize(width, height, false);
+            }
+            return needResize;
+        }
+
+        function render() {
+
+            if (resizeRendererToDisplaySize(renderer)) {
+                const canvas = renderer.domElement;
+                camera.aspect = canvas.clientWidth / canvas.clientHeight;
+                camera.updateProjectionMatrix();
+            }
+
+            renderer.render(scene, camera);
+
+            requestAnimationFrame(render);
+        }
+
+        requestAnimationFrame(render);
+    }
+    //'esources/models/windmill_2/windmill.obj'
+    let objmodel1 = "/src/obj/Mano Hamsa Muestra.obj"
+    let objmodel2 = "/src/obj/Patin Muestra.obj"
+    let objmodel3 = "/src/obj/emerald.obj"
+    let objmodel4 = "/src/obj/tree.obj"
+    // let objmodel2 ="models/obj/male02/male02.obj"
+    // main(objmodel1,"#c");
+    // main(objmodel2,"#d");
+    // main(objmodel3,"#f");
+    // main(objmodel4,"#j");
+
+
+    function createCanvas(canvasId) {
+        var x = document.createElement("canvas");
+        x.id = canvasId;
+        x.width = 300
+        x.height = 300;
+        document.body.appendChild(x);
+    }
+    createCanvas("c")
+
+
+
+    main(objmodel1, "#c");
+// main(objmodel2,"d");
+// main(objmodel3,"f");
+// main(objmodel4,"j");
+
+</script>
 
 </html>
